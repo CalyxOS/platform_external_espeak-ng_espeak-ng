@@ -1,0 +1,5 @@
+[gerrit]
+host=review.calyxos.org
+port=29418
+project=CalyxOS/platform_external_espeak-ng_espeak-ng
+defaultbranch=staging/android15
