@@ -137,8 +137,7 @@ public class TtsService extends TextToSpeechService {
             }
 
             final Intent intent = new Intent(storageContext, DownloadVoiceData.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            startService(intent);
 
             return new Pair<>(null, TextToSpeech.LANG_MISSING_DATA);
         }

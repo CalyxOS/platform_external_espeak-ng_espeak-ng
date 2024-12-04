@@ -28,16 +28,16 @@
                 android:resource="@xml/tts_engine" />
         </service>
 
-        <activity
+        <service
             android:name=".DownloadVoiceData"
             android:theme="@android:style/Theme.Dialog"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.speech.tts.engine.INSTALL_TTS_DATA" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
+        </service>
         <activity
             android:name=".CheckVoiceData"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"

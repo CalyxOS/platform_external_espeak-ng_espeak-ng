@@ -18,13 +18,14 @@
 
 package com.reecedunn.espeak;
 
-import android.app.Activity;
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.accessibility.AccessibilityEvent;
-import android.widget.ProgressBar;
+import android.os.IBinder;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -34,23 +35,25 @@ import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class DownloadVoiceData extends Activity {
+public class DownloadVoiceData extends Service {
     public static final String BROADCAST_LANGUAGES_UPDATED = "com.reecedunn.espeak.LANGUAGES_UPDATED";
 
     private AsyncExtract mAsyncExtract;
-    private ProgressBar mProgress;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
-        setContentView(R.layout.download_voice_data);
-        mProgress = (ProgressBar)findViewById(R.id.progress);
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
         Context storageContext = EspeakApp.getStorageContext();
 
         final File dataPath = CheckVoiceData.getDataPath(storageContext).getParentFile();
 
-        mAsyncExtract = new AsyncExtract(storageContext, R.raw.espeakdata, dataPath, mProgress) {
+        mAsyncExtract = new AsyncExtract(storageContext, R.raw.espeakdata, dataPath) {
             @Override
             protected void onPostExecute(Integer result) {
                 switch (result) {
@@ -62,21 +65,15 @@ public class DownloadVoiceData extends Activity {
                         // Do nothing?
                         break;
                 }
-
-                setResult(result);
-                finish();
+                stopSelf();
             }
         };
 
         mAsyncExtract.execute();
-
-        // Send a fake accessibility event so the user knows what's going on.
-        findViewById(R.id.installing_voice_data)
-                .sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
 
         mAsyncExtract.cancel(true);
@@ -87,7 +84,6 @@ public class DownloadVoiceData extends Activity {
 
     private static class ExtractProgress {
         int total;
-        int progress = 0;
         int state = PROGRESS_STARTING;
         File file;
 
@@ -100,13 +96,11 @@ public class DownloadVoiceData extends Activity {
         private final Context mContext;
         private final int mRawResId;
         private final File mOutput;
-        private final ProgressBar mProgress;
 
-        public AsyncExtract(Context context, int rawResId, File output, ProgressBar progress) {
+        public AsyncExtract(Context context, int rawResId, File output) {
             mContext = context;
             mRawResId = rawResId;
             mOutput = output;
-            mProgress = progress;
         }
 
         @Override
@@ -166,15 +160,6 @@ public class DownloadVoiceData extends Activity {
             }
 
             return RESULT_CANCELED;
-        }
-
-        @Override
-        protected void onProgressUpdate(ExtractProgress... progress) {
-            if (progress[0].state == PROGRESS_STARTING) {
-                mProgress.setMax(progress[0].total);
-            } else {
-                mProgress.setProgress(progress[0].progress);
-            }
         }
     }
 }
