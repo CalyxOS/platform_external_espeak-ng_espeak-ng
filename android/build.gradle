@@ -36,6 +36,7 @@ android {
     }
 
     defaultConfig {
+        applicationId = "org.calyxos.espeak"
         minSdk 21
         targetSdk 33
         versionCode 22
