@@ -16,6 +16,24 @@
       "message": "What\u0027s the concern regarding conflicts?",
       "revId": "9ff4130598bb08aef53439ced9baa5115994dc6a",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1844f70_93f47732",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-01-03T20:35:00Z",
+      "side": 1,
+      "message": "From my POV: https://review.calyxos.org/c/CalyxOS/platform_external_google_talkback/+/33737/comments/52fd88cc_414b8037",
+      "parentUuid": "845cc1cc_b55f755e",
+      "revId": "9ff4130598bb08aef53439ced9baa5115994dc6a",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
