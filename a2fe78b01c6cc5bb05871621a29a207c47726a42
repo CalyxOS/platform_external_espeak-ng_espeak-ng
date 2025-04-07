@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a69ac2d8_397f2191",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2025-04-07T21:33:23Z",
+      "side": 1,
+      "message": "Added accompanying prebuilt (production build needed): https://review.calyxos.org/c/CalyxOS/lfs_prebuilts_calyx_espeak-ng/+/38095\n\nWorks, the disembodied lips are gone.",
+      "revId": "a2fe78b01c6cc5bb05871621a29a207c47726a42",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
